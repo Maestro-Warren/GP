@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -182,8 +182,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
-  "clientVersion": "6.8.2",
-  "engineVersion": "2060c79ba17c6bb9f5823312b6f6b7f4a845738e",
+  "clientVersion": "6.9.0",
+  "engineVersion": "81e4af48011447c3cc503a190e86995b66d2a28e",
   "datasourceNames": [
     "db"
   ],
@@ -197,8 +197,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           String        @id @default(uuid())\n  name         String\n  email        String        @unique\n  tasks        Task[]\n  createdTasks Task[]        @relation(\"CreatedTasks\")\n  projects     Project[]     @relation(\"UserProjects\")\n  userProjects ProjectUser[]\n}\n\nmodel Project {\n  id          String        @id @default(uuid())\n  name        String\n  description String?\n  createdAt   DateTime      @default(now())\n  updatedAt   DateTime      @updatedAt\n  tasks       Task[]\n  inviteCode  String        @unique\n  createdById String\n  createdBy   User          @relation(\"UserProjects\", fields: [createdById], references: [id])\n  users       ProjectUser[]\n}\n\nmodel Task {\n  id                  String    @id @default(uuid())\n  name                String\n  description         String\n  status              String    @default(\"To Do\")\n  dueDate             DateTime?\n  projectId           String\n  project             Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)\n  user                User?     @relation(fields: [userId], references: [id])\n  userId              String?\n  createdById         String\n  createdBy           User      @relation(\"CreatedTasks\", fields: [createdById], references: [id])\n  solutionDescription String?\n}\n\nmodel ProjectUser {\n  id        String  @id @default(uuid())\n  userId    String\n  projectId String\n  user      User    @relation(fields: [userId], references: [id])\n  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, projectId])\n}\n",
-  "inlineSchemaHash": "cd3cd75bdb439e79fe1b73fcda39342d52fbd595bbad28a669eedc0a85b2b415",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DATABASE_URL_UNPOOLED\")\n}\n\nmodel User {\n  id           String        @id @default(uuid())\n  name         String\n  email        String        @unique\n  tasks        Task[]\n  createdTasks Task[]        @relation(\"CreatedTasks\")\n  projects     Project[]     @relation(\"UserProjects\")\n  userProjects ProjectUser[]\n}\n\nmodel Project {\n  id          String        @id @default(uuid())\n  name        String\n  description String?\n  createdAt   DateTime      @default(now())\n  updatedAt   DateTime      @updatedAt\n  tasks       Task[]\n  inviteCode  String        @unique\n  createdById String\n  createdBy   User          @relation(\"UserProjects\", fields: [createdById], references: [id])\n  users       ProjectUser[]\n}\n\nmodel Task {\n  id                  String    @id @default(uuid())\n  name                String\n  description         String\n  status              String    @default(\"To Do\")\n  dueDate             DateTime?\n  projectId           String\n  project             Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)\n  user                User?     @relation(fields: [userId], references: [id])\n  userId              String?\n  createdById         String\n  createdBy           User      @relation(\"CreatedTasks\", fields: [createdById], references: [id])\n  solutionDescription String?\n}\n\nmodel ProjectUser {\n  id        String  @id @default(uuid())\n  userId    String\n  projectId String\n  user      User    @relation(fields: [userId], references: [id])\n  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)\n\n  @@unique([userId, projectId])\n}\n",
+  "inlineSchemaHash": "29a73338b8a4f5379ceac23330b1c2346ff3cc466a65fd3f1a41c5d1ed188b3f",
   "copyEngine": true
 }
 
