@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.19.5",
+    "@neondatabase/serverless": "^1.0.1",
     "@prisma/client": "^6.9.0",
     "@prisma/extension-accelerate": "^2.0.0",
     "@tiptap/extension-blockquote": "^2.14.0",
